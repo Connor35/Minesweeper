@@ -7,6 +7,7 @@
 // FUNCTION PROTOTYPES
 //////////////////////////////////////////////////////////////////////////////////////////
 void welcome();
+string color_display_on();
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -14,12 +15,17 @@ void welcome();
 //////////////////////////////////////////////////////////////////////////////////////////
 int main(){
 
-    // print a welcome message to the user
-    welcome();
+    // initialize the random seed
+    srand (time(0));
 
     // create objects
     Game game;
-    // Board board;
+
+    // set up color preferences
+    string color_on = color_display_on();
+
+    // print a welcome message to the user
+    welcome();
 
     // choose difficulty
     int difficulty = game.choose_difficulty();
@@ -31,10 +37,11 @@ int main(){
     board = game.generate(board, difficulty);
 
     // while loop which runs the game
-    game.display_board(board, difficulty);
 
+    // clear the terminal to get a fresh view after each user input
 
     // lost or win
+    game.display_board(board, difficulty, color_on);
 
 
     return 0;
@@ -51,6 +58,24 @@ int main(){
 void welcome(){
     cout << "Welcome to Minesweeper! Please select a difficulty:" << endl;
     cout << "\t(1) Easy\n\t(2) Medium\n\t(3) Hard" << endl;
+}
+
+/*
+ * function name: color_display_on
+ * description: asks the user if they want color on or off
+ *              gets the user's input
+ */
+string color_display_on(){
+    cout << endl;
+    cout << "If your terminal does not support ANSI escape sequences, " << endl;
+    cout << "please enter 0. Otherwise, enter 1 to see color " << endl;
+    cout << "(most terminals support ANSI escape sequences): " << endl;
+
+    cout << ">> ";
+    string user_input;
+    cin >> user_input;
+    cout << endl;
+    return user_input;
 }
 
 
