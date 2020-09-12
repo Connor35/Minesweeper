@@ -33,12 +33,16 @@ int main(){
     // create new game
     int** board = game.create_game(difficulty);
 
+    // create the user's board that they see
+    char** user_board = game.create_user_board(difficulty);
+
     // generate a random 2d field
     board = game.generate(board, difficulty);
 
     // while loop which runs the game
     int game_running = true;
     while (game_running){
+        game.display_board(user_board, difficulty, color_on);
         game_running = false;
     }
 

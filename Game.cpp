@@ -6,16 +6,24 @@ class Game {
     public:
         int choose_difficulty();
         int** create_game(int);
+        char** create_user_board(int);
         int** generate(int**, int);
         int determine_size(int);
         int determine_num_mines(int);
         bool check_if_used(int**, int, int);
         void display_board(int**, int, string);
+        void display_board(char**, int, string);
         string get_user_input();
+
+        ~Game();
 
     private:
         int difficulty;
 };
+
+Game::~Game(){
+    cout << "Game ended." << endl;
+}
 
 /*
  * function name: choose_difficulty
@@ -52,6 +60,39 @@ int** Game::create_game(int difficulty){
         board[i] = new int[size];
 
     return board;
+}
+
+/*
+ * function name: create_user_board
+ * description: based on difficulty, creates an easy, medium, or hard board for the user to interact with
+ */
+char** Game::create_user_board(int difficulty){
+    int size;
+
+    switch (difficulty) {
+        case 1:
+            size = 9;
+            break;
+        case 2:
+            size = 16;
+            break;
+        case 3:
+            size = 25;
+            break;
+        default: exit(1);
+    }
+
+    char** user_board = new char*[size];
+    for(int i = 0; i < size; i++)
+        user_board[i] = new char[size];
+
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            user_board[i][j] = ' ';
+        }
+    }
+
+    return user_board;
 }
 
 /*
@@ -157,16 +198,36 @@ void Game::display_board(int** board, int difficulty, string color_on){
     int size = determine_size(difficulty);
 
     for (int i = 0; i < size; i++){
+        // cout << endl << '\t';
+        // for (int k = 0; k < size; k++){
+        //     cout << " ___ ";
+        // }
         cout << endl << endl << '\t';
         for (int j = 0; j < size; j++){
             if (board[i][j] == 9){
                 if (color_on == "1")
-                    cout << " " << "\033[1;31mM\033[0m";
+                    cout << "[ " << "\033[1;31mM\033[0m" << " ]";
                 else
-                    cout << " " << "M";
+                    cout << "[ " << "M" << " ]";
             } else {
-                cout << " " << board[i][j];
+                cout << "[ " << board[i][j] << " ]";
             }
+        }
+    }
+    cout << endl << endl;
+}
+
+/*
+ * function name: display_board
+ * description: shows the users board
+ */
+void Game::display_board(char** board, int difficulty, string color_on){
+    int size = determine_size(difficulty);
+
+    for (int i = 0; i < size; i++){
+        cout << endl << endl << '\t';
+        for (int j = 0; j < size; j++){
+            cout << "[ " << board[i][j] << " ]";
         }
     }
     cout << endl << endl;
