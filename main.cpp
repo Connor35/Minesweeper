@@ -37,6 +37,10 @@ int main(){
     board = game.generate(board, difficulty);
 
     // while loop which runs the game
+    int game_running = true;
+    while (game_running){
+        game_running = false;
+    }
 
     // clear the terminal to get a fresh view after each user input
 
