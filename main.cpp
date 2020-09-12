@@ -1,6 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////// HEADER FILES
 //////////////////////////////////////////////////////////////////////////////////////////
 #include "Game.cpp"
+#include "Turn.cpp"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +21,7 @@ int main(){
 
     // create objects
     Game game;
+    Turn turn;
 
     // set up color preferences
     string color_on = color_display_on();
@@ -38,6 +40,9 @@ int main(){
 
     // generate a random 2d field
     board = game.generate(board, difficulty);
+
+    // fill in the numbers for each cell
+    game.fill_in_board(board, difficulty);
 
     // while loop which runs the game
     int game_running = true;

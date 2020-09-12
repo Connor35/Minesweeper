@@ -14,6 +14,9 @@ class Game {
         void display_board(int**, int, string);
         void display_board(char**, int, string);
         string get_user_input();
+        void fill_in_board(int**, int);
+        int count_surr_mines(int**, int, int, int);
+        bool valid_cell(int, int, int);
 
         ~Game();
 
@@ -244,3 +247,105 @@ string Game::get_user_input(){
     cout << endl;
     return user_input;
 }
+
+/*
+ * function name: fill_in_board
+ * description: calculates the number for each cell. each cell number represents the number of surrounding mines.
+ */
+void Game::fill_in_board(int** board, int difficulty){
+    int size = determine_size(difficulty);
+
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            int number = count_surr_mines(board, i, j, difficulty);
+            board[i][j] = number;
+        }
+    }
+
+    return;
+}
+
+/*
+ * function name: count_surr_mines
+ * description: counts the surrounding cells and returns number of mines
+ */
+int Game::count_surr_mines(int** board, int x, int y, int difficulty){
+
+    int size = determine_size(difficulty);
+    int number = 0;
+
+    if (board[x][y] == 9){
+        return 9;
+    }
+    else {
+        // Up left
+        if (valid_cell(x-1, y-1, size)){
+            if (board[x-1][y-1] == 9){
+                number++;
+            }
+        }
+
+        // Up
+        if (valid_cell(x, y-1, size)){
+            if (board[x][y-1] == 9){
+                number++;
+            }
+        }
+
+        // Up right
+        if (valid_cell(x+1, y-1, size)){
+            if (board[x+1][y-1] == 9){
+                number++;
+            }
+        }
+
+        // Left
+        if (valid_cell(x-1, y, size)){
+            if (board[x-1][y] == 9){
+                number++;
+            }
+        }
+
+        // Right
+        if (valid_cell(x+1, y, size)){
+            if (board[x+1][y] == 9){
+                number++;
+            }
+        }
+
+        // Down Left
+        if (valid_cell(x-1, y+1, size)){
+            if (board[x-1][y+1] == 9){
+                number++;
+            }
+        }
+
+        // Down
+        if (valid_cell(x, y+1, size)){
+            if (board[x][y+1] == 9){
+                number++;
+            }
+        }
+
+        // Down right
+        if (valid_cell(x+1, y+1, size)){
+            if (board[x+1][y+1] == 9){
+                number++;
+            }
+        }
+
+    }
+    return number;
+}
+
+/*
+ * function name: valid_cell
+ * description: checks if the coordinates are within the board boundaries
+ */
+bool Game::valid_cell(int x, int y, int size){
+    if (x >= 0 and x <= (size-1) and y >= 0 and y <= (size-1)){
+        return true;
+    }
+    return false;
+}
+

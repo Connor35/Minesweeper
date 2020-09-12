@@ -5,7 +5,8 @@ using namespace std;
 class Turn {
     public:
         string get_user_input();
-        
+
+        ~Turn();
 
     private:
 
@@ -13,7 +14,7 @@ class Turn {
 };
 
 Turn::~Turn(){
-
+    cout << "Turn object deleted." << endl;
 }
 
 /*
