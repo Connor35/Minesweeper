@@ -8,13 +8,11 @@ $(exe_file): main.o
 	@clear
 	@./$(exe_file)
 
-
 # Game.o: Game.cpp
 # 	$(CC) -c Game.cpp
 
 main.o: main.cpp
 	$(CC) -c main.cpp
-
 
 clean:
 	@echo
