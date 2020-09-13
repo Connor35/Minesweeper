@@ -33,9 +33,11 @@ Game::~Game(){
  * description: allows the user to choose a difficulty, calls get_user_input()
  */
 int Game::choose_difficulty(){
-    int difficulty = 0;
-    difficulty = stoi(get_user_input());
-
+    string user_input = "";
+    while (user_input != "1" and user_input != "2"  and user_input != "3"){
+        user_input = get_user_input();
+    }
+    int difficulty = stoi(user_input);
     return difficulty;
 }
 

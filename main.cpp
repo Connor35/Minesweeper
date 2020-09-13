@@ -59,13 +59,13 @@ int main(){
         game.display_user_board(user_board, board, size, color_on);
 
         // get user input for their next move
-        cout << "Enter mode (f = Flag, c = Click, q = Quit): ";
+        cout << "Enter mode (f/c/g/q): ";
         string mode = turn.get_user_input();
         if (mode == "q") {
             game_running = false;
             break;
         }
-        if (mode != "f" and mode != "c"){
+        if (mode != "f" and mode != "c" and mode != "g"){
             cout << "Invalid mode... " << endl;
             sleep(1);
             continue;
@@ -114,7 +114,10 @@ int main(){
  * description: Prints a welcoming message to the user
  */
 void welcome(){
-    cout << "Welcome to Minesweeper! Please select a difficulty:" << endl;
+    cout << "Welcome to Minesweeper! " << endl << endl;
+    cout << "Controls:" << endl;
+    cout << "\tf = Flag, \tc = Click, \tg = End and check for win, \tq = Quit" << endl << endl;
+    cout << "Please select a difficulty:" << endl;
     cout << "\t(1) Easy\n\t(2) Medium\n\t(3) Hard" << endl;
 }
 
@@ -129,9 +132,11 @@ string color_display_on(){
     cout << "please enter 0. Otherwise, enter 1 to see color " << endl;
     cout << "(most terminals support ANSI escape sequences): " << endl;
 
-    cout << ">> ";
-    string user_input;
-    cin >> user_input;
+    string user_input = "";
+    while (user_input != "1" and user_input != "0"){
+        cout << ">> ";
+        cin >> user_input;
+    }
     cout << endl;
     return user_input;
 }
