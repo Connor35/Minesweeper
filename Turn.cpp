@@ -19,7 +19,7 @@ class Turn {
 };
 
 Turn::~Turn(){
-    
+
 }
 
 /*
@@ -49,10 +49,14 @@ bool Turn::valid_cell(int x, int y, int size){
  * description: toggles a cell to display F for flag
  */
 void Turn::toggle_flag(char** user_board, int** board, int size, int x, int y){
-    string buffer;
     if (valid_cell(x, y, size)){
         if (user_board[x][y] == 'F'){
             user_board[x][y] = ' ';
+        }
+        else if (user_board[x][y] != ' '){
+            cout << "Cannot flag here... " << endl;
+            sleep(1);
+
         }
         else {
             user_board[x][y] = 'F';

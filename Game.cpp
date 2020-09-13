@@ -166,7 +166,8 @@ int Game::determine_num_mines(int difficulty){
 void Game::display_board(int** board, int size, string color_on){
     cout << endl << endl << "Y/X \t";
     for (int i = 0; i < size; i++){
-        cout << "  " << i << "  ";
+        if (i < 10) cout << "  " << i << "  ";
+        else cout << "  " << i << " ";
     }
     for (int i = 0; i < size; i++){
         cout << endl << endl << i << '\t';
@@ -213,7 +214,8 @@ void Game::display_board(int** board, int size, string color_on){
 void Game::display_user_board(char** user_board, int** board, int size, string color_on){
     cout << endl << endl << "Y/X \t";
     for (int i = 0; i < size; i++){
-        cout << "  " << i << "  ";
+        if (i < 10) cout << "  " << i << "  ";
+        else cout << "  " << i << " ";
     }
     for (int i = 0; i < size; i++){
         cout << endl << endl << i << '\t';
