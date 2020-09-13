@@ -25,7 +25,7 @@ class Game {
 };
 
 Game::~Game(){
-    cout << "Game ended." << endl;
+
 }
 
 /*
@@ -35,6 +35,7 @@ Game::~Game(){
 int Game::choose_difficulty(){
     int difficulty = 0;
     difficulty = stoi(get_user_input());
+
     return difficulty;
 }
 
@@ -97,13 +98,11 @@ int** Game::generate(int** board, int difficulty, int size){
         if (check_if_used(board, x_index, y_index)){
             // it does, redo this run
             mines_placed--;
-        } else{
+        }
+        else{
             // add the mine
             board[x_index][y_index] = 9;
         }
-
-        // update the surrounding counters
-
     }
     return board;
 }
@@ -173,19 +172,34 @@ void Game::display_board(int** board, int size, string color_on){
         cout << endl << endl << i << '\t';
         for (int j = 0; j < size; j++){
             if (board[i][j] == 9){
+                // mine
                 if (color_on == "1")
                     cout << "[ " << "\033[1;31mM\033[0m" << " ]";
                 else
                     cout << "[ M ]";
             }
             else if (board[i][j] == 0 or board[i][j] == -1){
+                // empty
                 if (color_on == "1")
-                    cout << "[ " << "\033[1;36m*\033[0m" << " ]";
+                    cout << "[ " << "\033[1;37m*\033[0m" << " ]";
                 else
                     cout << "[ * ]";
             }
             else {
-                cout << "[ " << board[i][j] << " ]";
+                // number (1-8)
+                if (color_on == "1"){
+                    if (board[i][j] == 1) cout << "[ \033[1;34m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 2) cout << "[ \033[1;32m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 3) cout << "[ \033[1;31m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 4) cout << "[ \033[1;35m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 5) cout << "[ \033[4;34m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 6) cout << "[ \033[4;32m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 7) cout << "[ \033[4;31m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 8) cout << "[ \033[4;35m" << board[i][j] << "\033[0m ]";
+                }
+                else {
+                    cout << "[ " << board[i][j] << " ]";
+                }
             }
         }
     }
@@ -205,13 +219,38 @@ void Game::display_user_board(char** user_board, int** board, int size, string c
         cout << endl << endl << i << '\t';
         for (int j = 0; j < size; j++){
             if (user_board[i][j] == 'F'){
+                // Flag
                 if (color_on == "1")
                     cout << "[ " << "\033[1;31mF\033[0m" << " ]";
                 else
                     cout << "[ F ]";
             }
-            else {
+            else if (user_board[i][j] == '*'){
+                // empty
+                if (color_on == "1")
+                    cout << "[ " << "\033[1;37m*\033[0m" << " ]";
+                else
+                    cout << "[ * ]";
+            }
+            else if (user_board[i][j] == ' '){
+                // not yet clicked cell
                 cout << "[ " << user_board[i][j] << " ]";
+            }
+            else {
+                // revealed number
+                if (color_on == "1"){
+                    if (board[i][j] == 1) cout << "[ \033[1;34m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 2) cout << "[ \033[1;32m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 3) cout << "[ \033[1;31m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 4) cout << "[ \033[1;35m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 5) cout << "[ \033[4;34m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 6) cout << "[ \033[4;32m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 7) cout << "[ \033[4;31m" << board[i][j] << "\033[0m ]";
+                    if (board[i][j] == 8) cout << "[ \033[4;35m" << board[i][j] << "\033[0m ]";
+                }
+                else {
+                    cout << "[ " << user_board[i][j] << " ]";
+                }
             }
         }
     }

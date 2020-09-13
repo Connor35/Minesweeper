@@ -19,7 +19,7 @@ class Turn {
 };
 
 Turn::~Turn(){
-    cout << "Turn object deleted." << endl;
+    
 }
 
 /*

@@ -59,11 +59,16 @@ int main(){
         game.display_user_board(user_board, board, size, color_on);
 
         // get user input for their next move
-        cout << "Enter mode (F = Flag, C = Click): ";
+        cout << "Enter mode (f = Flag, c = Click, q = Quit): ";
         string mode = turn.get_user_input();
         if (mode == "q") {
             game_running = false;
             break;
+        }
+        if (mode != "f" and mode != "c"){
+            cout << "Invalid mode... " << endl;
+            sleep(1);
+            continue;
         }
 
         // these coordinates are flipped so that the board works visually for user
@@ -84,7 +89,7 @@ int main(){
         }
 
         if (hit_mine == 1){
-            cout << "You lost!" << endl;
+            cout << endl << "You lost!" << endl;
             game_running = false;
             break;
         }
