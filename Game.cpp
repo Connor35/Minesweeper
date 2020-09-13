@@ -165,12 +165,12 @@ int Game::determine_num_mines(int difficulty){
  * description: shows the unhidden board
  */
 void Game::display_board(int** board, int size, string color_on){
+    cout << endl << endl << "Y/X \t";
     for (int i = 0; i < size; i++){
-        // cout << endl << '\t';
-        // for (int k = 0; k < size; k++){
-        //     cout << " ___ ";
-        // }
-        cout << endl << endl << '\t';
+        cout << "  " << i << "  ";
+    }
+    for (int i = 0; i < size; i++){
+        cout << endl << endl << i << '\t';
         for (int j = 0; j < size; j++){
             if (board[i][j] == 9){
                 if (color_on == "1")
@@ -178,7 +178,7 @@ void Game::display_board(int** board, int size, string color_on){
                 else
                     cout << "[ M ]";
             }
-            else if (board[i][j] == 0){
+            else if (board[i][j] == 0 or board[i][j] == -1){
                 if (color_on == "1")
                     cout << "[ " << "\033[1;36m*\033[0m" << " ]";
                 else
@@ -197,8 +197,12 @@ void Game::display_board(int** board, int size, string color_on){
  * description: shows the users board
  */
 void Game::display_user_board(char** user_board, int** board, int size, string color_on){
+    cout << endl << endl << "Y/X \t";
     for (int i = 0; i < size; i++){
-        cout << endl << endl << '\t';
+        cout << "  " << i << "  ";
+    }
+    for (int i = 0; i < size; i++){
+        cout << endl << endl << i << '\t';
         for (int j = 0; j < size; j++){
             if (user_board[i][j] == 'F'){
                 if (color_on == "1")

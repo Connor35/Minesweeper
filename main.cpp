@@ -55,6 +55,7 @@ int main(){
         system("./echo.bs");
 
         // display the user board
+        game.display_board(board, size, color_on);
         game.display_user_board(user_board, board, size, color_on);
 
         // get user input for their next move
