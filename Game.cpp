@@ -12,7 +12,7 @@ class Game {
         int determine_num_mines(int);
         bool check_if_used(int**, int, int);
         void display_board(int**, int, string);
-        void display_board(char**, int, string);
+        void display_user_board(char**, int**, int, string);
         string get_user_input();
         void fill_in_board(int**, int);
         int count_surr_mines(int**, int, int, int);
@@ -212,7 +212,14 @@ void Game::display_board(int** board, int difficulty, string color_on){
                     cout << "[ " << "\033[1;31mM\033[0m" << " ]";
                 else
                     cout << "[ " << "M" << " ]";
-            } else {
+            }
+            else if (board[i][j] == 0){
+                if (color_on == "1")
+                    cout << "[ " << "\033[1;36m*\033[0m" << " ]";
+                else
+                    cout << "[ " << "M" << " ]";
+            }
+            else {
                 cout << "[ " << board[i][j] << " ]";
             }
         }
@@ -221,10 +228,10 @@ void Game::display_board(int** board, int difficulty, string color_on){
 }
 
 /*
- * function name: display_board
+ * function name: display_user_board
  * description: shows the users board
  */
-void Game::display_board(char** board, int difficulty, string color_on){
+void Game::display_user_board(char** user_board, int** board, int difficulty, string color_on){
     int size = determine_size(difficulty);
 
     for (int i = 0; i < size; i++){
@@ -348,4 +355,6 @@ bool Game::valid_cell(int x, int y, int size){
     }
     return false;
 }
+
+
 

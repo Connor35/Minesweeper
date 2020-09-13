@@ -45,9 +45,9 @@ int main(){
     game.fill_in_board(board, difficulty);
 
     // while loop which runs the game
-    int game_running = true;
+    bool game_running = true;
     while (game_running){
-        game.display_board(user_board, difficulty, color_on);
+        game.display_user_board(user_board, board, difficulty, color_on);
         game_running = false;
     }
 
