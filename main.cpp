@@ -16,6 +16,9 @@ string color_display_on();
 //////////////////////////////////////////////////////////////////////////////////////////
 int main(){
 
+    // clear the screen
+    system("./clear_screen.bs");
+
     // initialize the random seed
     srand (time(0));
 
@@ -52,7 +55,7 @@ int main(){
     int hit_mine = 0;
     while (game_running){
         // clear the terminal to get a fresh view after each user input
-        system("./echo.bs");
+        system("./clear_screen.bs");
 
         // display the user board
         // uncomment the following line to see the hidden board
