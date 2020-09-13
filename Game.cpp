@@ -353,7 +353,6 @@ int Game::count_surr_mines(int** board, int x, int y, int size){
                 number++;
             }
         }
-
     }
     return number;
 }
@@ -384,7 +383,4 @@ bool Game::valid_cell(int x, int y, int size){
      }
      return score;
  }
-
-
-
 

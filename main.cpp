@@ -55,7 +55,8 @@ int main(){
         system("./echo.bs");
 
         // display the user board
-        game.display_board(board, size, color_on); // delete this after testing
+        // uncomment the following line to see the hidden board
+        // game.display_board(board, size, color_on);
         game.display_user_board(user_board, board, size, color_on);
 
         // get user input for their next move
@@ -148,17 +149,4 @@ string color_display_on(){
     cout << endl;
     return user_input;
 }
-
-/*
- * function name: get_all_inputs
- * description: gets all user inputs (mode, x, y)
- */
-
-
-
-
-
-
-
-
 
