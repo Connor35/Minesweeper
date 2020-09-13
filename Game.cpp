@@ -7,7 +7,7 @@ class Game {
         int choose_difficulty();
         int** create_game(int);
         char** create_user_board(int);
-        int** generate(int**, int);
+        int** generate(int**, int, int);
         int determine_size(int);
         int determine_num_mines(int);
         bool check_if_used(int**, int, int);
@@ -42,22 +42,7 @@ int Game::choose_difficulty(){
  * function name: create_game
  * description: based on difficulty, creates an easy, medium, or hard game
  */
-int** Game::create_game(int difficulty){
-    int size;
-
-    switch (difficulty) {
-        case 1:
-            size = 9;
-            break;
-        case 2:
-            size = 16;
-            break;
-        case 3:
-            size = 25;
-            break;
-        default: exit(1);
-    }
-
+int** Game::create_game(int size){
     int** board = new int*[size];
     for(int i = 0; i < size; i++)
         board[i] = new int[size];
@@ -69,22 +54,7 @@ int** Game::create_game(int difficulty){
  * function name: create_user_board
  * description: based on difficulty, creates an easy, medium, or hard board for the user to interact with
  */
-char** Game::create_user_board(int difficulty){
-    int size;
-
-    switch (difficulty) {
-        case 1:
-            size = 9;
-            break;
-        case 2:
-            size = 16;
-            break;
-        case 3:
-            size = 25;
-            break;
-        default: exit(1);
-    }
-
+char** Game::create_user_board(int size){
     char** user_board = new char*[size];
     for(int i = 0; i < size; i++)
         user_board[i] = new char[size];
@@ -105,11 +75,8 @@ char** Game::create_user_board(int difficulty){
  *              medium = 40 mines
  *              hard = 99 mines
  */
-int** Game::generate(int** board, int difficulty){
-
-    int size = determine_size(difficulty);
+int** Game::generate(int** board, int difficulty, int size){
     int num_mines = determine_num_mines(difficulty);
-
 
     // initialize the board
     for (int i = 0; i < size; i++){
@@ -197,9 +164,7 @@ int Game::determine_num_mines(int difficulty){
  * function name: display_board
  * description: shows the unhidden board
  */
-void Game::display_board(int** board, int difficulty, string color_on){
-    int size = determine_size(difficulty);
-
+void Game::display_board(int** board, int size, string color_on){
     for (int i = 0; i < size; i++){
         // cout << endl << '\t';
         // for (int k = 0; k < size; k++){
@@ -211,13 +176,13 @@ void Game::display_board(int** board, int difficulty, string color_on){
                 if (color_on == "1")
                     cout << "[ " << "\033[1;31mM\033[0m" << " ]";
                 else
-                    cout << "[ " << "M" << " ]";
+                    cout << "[ M ]";
             }
             else if (board[i][j] == 0){
                 if (color_on == "1")
                     cout << "[ " << "\033[1;36m*\033[0m" << " ]";
                 else
-                    cout << "[ " << "M" << " ]";
+                    cout << "[ * ]";
             }
             else {
                 cout << "[ " << board[i][j] << " ]";
@@ -231,13 +196,19 @@ void Game::display_board(int** board, int difficulty, string color_on){
  * function name: display_user_board
  * description: shows the users board
  */
-void Game::display_user_board(char** user_board, int** board, int difficulty, string color_on){
-    int size = determine_size(difficulty);
-
+void Game::display_user_board(char** user_board, int** board, int size, string color_on){
     for (int i = 0; i < size; i++){
         cout << endl << endl << '\t';
         for (int j = 0; j < size; j++){
-            cout << "[ " << board[i][j] << " ]";
+            if (user_board[i][j] == 'F'){
+                if (color_on == "1")
+                    cout << "[ " << "\033[1;31mF\033[0m" << " ]";
+                else
+                    cout << "[ F ]";
+            }
+            else {
+                cout << "[ " << user_board[i][j] << " ]";
+            }
         }
     }
     cout << endl << endl;
@@ -251,7 +222,6 @@ string Game::get_user_input(){
     cout << ">> ";
     string user_input;
     cin >> user_input;
-    cout << endl;
     return user_input;
 }
 
@@ -259,16 +229,13 @@ string Game::get_user_input(){
  * function name: fill_in_board
  * description: calculates the number for each cell. each cell number represents the number of surrounding mines.
  */
-void Game::fill_in_board(int** board, int difficulty){
-    int size = determine_size(difficulty);
-
+void Game::fill_in_board(int** board, int size){
     for (int i = 0; i < size; i++){
         for (int j = 0; j < size; j++){
-            int number = count_surr_mines(board, i, j, difficulty);
+            int number = count_surr_mines(board, i, j, size);
             board[i][j] = number;
         }
     }
-
     return;
 }
 
@@ -276,9 +243,7 @@ void Game::fill_in_board(int** board, int difficulty){
  * function name: count_surr_mines
  * description: counts the surrounding cells and returns number of mines
  */
-int Game::count_surr_mines(int** board, int x, int y, int difficulty){
-
-    int size = determine_size(difficulty);
+int Game::count_surr_mines(int** board, int x, int y, int size){
     int number = 0;
 
     if (board[x][y] == 9){

@@ -32,29 +32,58 @@ int main(){
     // choose difficulty
     int difficulty = game.choose_difficulty();
 
+    // determine size based on difficulty
+    int size = game.determine_size(difficulty);
+
     // create new game
-    int** board = game.create_game(difficulty);
+    int** board = game.create_game(size);
 
     // create the user's board that they see
-    char** user_board = game.create_user_board(difficulty);
+    char** user_board = game.create_user_board(size);
 
     // generate a random 2d field
-    board = game.generate(board, difficulty);
+    board = game.generate(board, difficulty, size);
 
     // fill in the numbers for each cell
-    game.fill_in_board(board, difficulty);
+    game.fill_in_board(board, size);
 
     // while loop which runs the game
     bool game_running = true;
     while (game_running){
-        game.display_user_board(user_board, board, difficulty, color_on);
-        game_running = false;
+        // display the user board
+        game.display_user_board(user_board, board, size, color_on);
+
+        // get user input for their next move
+        cout << "Enter mode (F = Flag, C = Click): ";
+        string mode = turn.get_user_input();
+        if (mode == "q") {
+            game_running = false;
+            break;
+        }
+        cout << "Enter X coordinate: ";
+        int x = stoi(turn.get_user_input());
+        cout << "Enter Y coordinate: ";
+        int y = stoi(turn.get_user_input());
+
+        // execute their move
+        if (mode == "f"){
+            turn.toggle_flag(user_board, board, size, x, y);
+        }
+        else if (mode == "c"){
+
+        }
+        else {
+            continue;
+        }
+
+        // clear the terminal to get a fresh view after each user input
+
     }
 
-    // clear the terminal to get a fresh view after each user input
+    // calculate score and display it
 
     // lost or win
-    game.display_board(board, difficulty, color_on);
+    game.display_board(board, size, color_on);
 
 
     return 0;
@@ -90,6 +119,12 @@ string color_display_on(){
     cout << endl;
     return user_input;
 }
+
+/*
+ * function name: get_all_inputs
+ * description: gets all user inputs (mode, x, y)
+ */
+
 
 
 
