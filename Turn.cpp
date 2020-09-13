@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <unistd.h>
 using namespace std;
 
 class Turn {
@@ -7,6 +8,7 @@ class Turn {
         string get_user_input();
         bool valid_cell(int, int, int);
         void toggle_flag(char**, int**, int, int, int);
+        int click_cell(char**, int**, int, int, int);
 
         ~Turn();
 
@@ -46,6 +48,7 @@ bool Turn::valid_cell(int x, int y, int size){
  * description: toggles a cell to display F for flag
  */
 void Turn::toggle_flag(char** user_board, int** board, int size, int x, int y){
+    string buffer;
     if (valid_cell(x, y, size)){
         if (user_board[x][y] == 'F'){
             user_board[x][y] = ' ';
@@ -55,6 +58,33 @@ void Turn::toggle_flag(char** user_board, int** board, int size, int x, int y){
         }
     }
     else {
-        cout << "Invalid coordinate." << endl;
+        cout << "Invalid coordinate... " << endl;
+        sleep(1);
     }
+}
+
+/*
+ * function name: click_cell
+ * description: clicks a cell, triggering a possible chain of revelations across the board
+ */
+int Turn::click_cell(char** user_board, int** board, int size, int x, int y){
+
+    if (valid_cell(x, y, size)){
+        if (board[x][y] == 9){
+            return 1;
+        }
+        else if (board[x][y] >= 1 and board[x][y] <= 8){
+            char a = '0' + board[x][y];
+            user_board[x][y] = a;
+        }
+        else {
+            // begin recursion
+
+        }
+    }
+    else {
+        cout << "Invalid coordinate... " << endl;
+        sleep(1);
+    }
+    return 0;
 }

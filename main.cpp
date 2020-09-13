@@ -49,7 +49,11 @@ int main(){
 
     // while loop which runs the game
     bool game_running = true;
+    int hit_mine = 0;
     while (game_running){
+        // clear the terminal to get a fresh view after each user input
+        system("./echo.bs");
+
         // display the user board
         game.display_user_board(user_board, board, size, color_on);
 
@@ -60,23 +64,29 @@ int main(){
             game_running = false;
             break;
         }
+
+        // these coordinates are flipped so that the board works visually for user
         cout << "Enter X coordinate: ";
-        int x = stoi(turn.get_user_input());
-        cout << "Enter Y coordinate: ";
         int y = stoi(turn.get_user_input());
+        cout << "Enter Y coordinate: ";
+        int x = stoi(turn.get_user_input());
 
         // execute their move
         if (mode == "f"){
             turn.toggle_flag(user_board, board, size, x, y);
         }
         else if (mode == "c"){
-
+            hit_mine = turn.click_cell(user_board, board, size, x, y);
         }
         else {
             continue;
         }
 
-        // clear the terminal to get a fresh view after each user input
+        if (hit_mine == 1){
+            cout << "You lost!" << endl;
+            game_running = false;
+            break;
+        }
 
     }
 
