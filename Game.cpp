@@ -17,6 +17,7 @@ class Game {
         void fill_in_board(int**, int);
         int count_surr_mines(int**, int, int, int);
         bool valid_cell(int, int, int);
+        int calculate_score(char**, int**, int);
 
         ~Game();
 
@@ -367,6 +368,23 @@ bool Game::valid_cell(int x, int y, int size){
     }
     return false;
 }
+
+/*
+ * function name: calculate_score
+ * description: runs through the user board and compares flags with mines on hidden board
+ */
+ int Game::calculate_score(char** user_board, int** board, int size){
+     int score = 0;
+     for (int i = 0; i < size; i++){
+         for (int j = 0; j < size; j++){
+             if (user_board[i][j] == 'F' and board[i][j] == 9){
+                 score++;
+             }
+         }
+     }
+     return score;
+ }
+
 
 
 

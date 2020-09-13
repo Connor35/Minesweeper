@@ -55,23 +55,24 @@ int main(){
         system("./echo.bs");
 
         // display the user board
-        game.display_board(board, size, color_on);
+        game.display_board(board, size, color_on); // delete this after testing
         game.display_user_board(user_board, board, size, color_on);
 
         // get user input for their next move
-        cout << "Enter mode (f/c/g/q): ";
+        cout << "Enter mode (f/c/q): ";
         string mode = turn.get_user_input();
         if (mode == "q") {
             game_running = false;
             break;
         }
-        if (mode != "f" and mode != "c" and mode != "g"){
+        if (mode != "f" and mode != "c"){
             cout << "Invalid mode... " << endl;
             sleep(1);
             continue;
         }
 
         // these coordinates are flipped so that the board works visually for user
+        // get X and Y coordinates
         cout << "Enter X coordinate: ";
         int y = stoi(turn.get_user_input());
         cout << "Enter Y coordinate: ";
@@ -89,7 +90,7 @@ int main(){
         }
 
         if (hit_mine == 1){
-            cout << endl << "You lost!" << endl;
+            cout << endl << endl << "\tYou lost!" << endl;
             game_running = false;
             break;
         }
@@ -97,10 +98,17 @@ int main(){
     }
 
     // calculate score and display it
+    int score = game.calculate_score(user_board, board, size);
+    int num_mines = game.determine_num_mines(difficulty);
+    cout << endl << endl << "You scored: " << score << "/" << num_mines << endl;
 
-    // lost or win
+    // check if user won the game
+    if (score == num_mines){
+        cout << endl << "You won!!!" << endl;
+    }
+
+    // lost or win, display the hidden board
     game.display_board(board, size, color_on);
-
 
     return 0;
 }
@@ -116,7 +124,7 @@ int main(){
 void welcome(){
     cout << "Welcome to Minesweeper! " << endl << endl;
     cout << "Controls:" << endl;
-    cout << "\tf = Flag, \tc = Click, \tg = End and check for win, \tq = Quit" << endl << endl;
+    cout << "\tf = Flag, \tc = Click, \tq = Quit and calculate score" << endl << endl;
     cout << "Please select a difficulty:" << endl;
     cout << "\t(1) Easy\n\t(2) Medium\n\t(3) Hard" << endl;
 }
