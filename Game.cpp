@@ -270,6 +270,7 @@ string Game::get_user_input(){
     cout << ">> ";
     string user_input;
     cin >> user_input;
+    cin.ignore(256, '\n');
     return user_input;
 }
 

@@ -158,6 +158,7 @@ string color_display_on(){
     while (user_input != "1" and user_input != "0"){
         cout << ">> ";
         cin >> user_input;
+        cin.ignore(256, '\n');
     }
     cout << endl;
     return user_input;
