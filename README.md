@@ -1,7 +1,7 @@
 # Minesweeper
 This is a personal project written mostly in C++. There is a Makefile and a small amount of BASH scripting for added functionality. 
 
-To start the game, navigate to the Minesweeper directory housing all files, and type "make" in your terminal. When done playing, type "make clean" to remove the object files. 
+To start the game, navigate to the Minesweeper directory, and type "make" in your terminal. When done playing, type "make clean" to remove the object files. 
 
 The goal of this project is to recreate the desktop game Minesweeper. 
 
