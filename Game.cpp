@@ -178,7 +178,7 @@ void Game::display_board(int** board, int size, string color_on){
             if (board[i][j] == 9){
                 // mine
                 if (color_on == "1")
-                    cout << "[ " << "\033[1;31mM\033[0m" << " ]";
+                    cout << "[ " << "\033[7;31mM\033[0m" << " ]";
                 else
                     cout << "[ M ]";
             }
@@ -226,7 +226,7 @@ void Game::display_user_board(char** user_board, int** board, int size, string c
             if (user_board[i][j] == 'F'){
                 // Flag
                 if (color_on == "1")
-                    cout << "[ " << "\033[1;31mF\033[0m" << " ]";
+                    cout << "[ " << "\033[7;31;47mF\033[0m" << " ]";
                 else
                     cout << "[ F ]";
             }
